@@ -1,0 +1,28 @@
+﻿@page
+@model WebApp.Pages.RegisterModel
+@{
+}
+<div>
+    <h1 class="text-center">Register</h1>
+<form class="w-25 m-auto" method="post">
+        <label asp-for="RegisterVM.Username" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.Username" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.Username"></span><br />
+        <label asp-for="RegisterVM.Email" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.Email" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.Email"></span><br />
+        <label asp-for="RegisterVM.FirstName" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.FirstName" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.FirstName"></span><br />
+        <label asp-for="RegisterVM.LastName" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.LastName" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.LastName"></span><br />
+        <label asp-for="RegisterVM.Password" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.Password" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.Password"></span><br />
+        <label asp-for="RegisterVM.ConfirmPassword" class="form-label fw-bold"></label>
+    <input asp-for="RegisterVM.ConfirmPassword" class="form-control" />
+    <span class="text-danger" asp-validation-for="RegisterVM.ConfirmPassword"></span><br />
+    <input type="submit" class="btn btn-primary border-dark bg-black w-100" value="Register" />
+</form>
+</div>

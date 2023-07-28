@@ -1,0 +1,75 @@
+﻿@page
+@model WebApp.Pages.CartModel
+@{
+}
+
+@if (!string.IsNullOrEmpty(TempData["OrderMessage"] as string))
+{
+    <div class="alert alert-info">
+        @TempData["OrderMessage"]
+    </div>
+}
+else if (!string.IsNullOrEmpty(TempData["Error"] as string))
+{
+    <div class="alert alert-info">
+        @TempData["Error"]
+    </div>
+}
+else if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+else
+{
+
+    <div class="card">
+        <div class="row">
+            <div class="col-md-8 cart">
+                <form method="post" asp-page="/Cart" asp-page-handler="Update">
+                    <h4 class="title"><b>Shopping Cart - Total Items: @Model.TotalItem</b></h4>
+                    @foreach (var item in Model.Cart)
+                    {
+                        <div class="row border-top border-bottom">
+                            <div class="row main align-items-center">
+                                <div class="col-3">
+                                    <img class="img-fluid" src="@item.Shoe.ImageUrl" alt="@item.Shoe.Model" />
+                                </div>
+                                <div class="col">
+                                    <div class="row text-muted">@item.Shoe.Sku</div>
+                                    <div class="row">@item.Shoe.Model</div>
+                                </div>
+                                <div class="col">
+                                    <input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 60px;" />
+                                </div>
+                                <div class="col">
+                                    &euro; @(item.Shoe.Price * item.Quantity)
+                                </div>
+                                <div class="col">
+                                    <input type="submit" value="Update" class="btn btn-primary btn-sm" />
+                                </div>
+                                <div>
+                                    <a asp-page="/Cart" asp-page-handler="Delete" asp-route-id="@item.Shoe.ShoeId" class="btn btn-danger btn-sm">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </form>
+                <div class="back-to-shop"><a href="/Index">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            </div>
+            <div class="col-md-4 summary">
+                <h5><b>Summary</b></h5>
+                <hr>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-right">&euro; @Model.Total</div>
+                </div>
+                <form method="post" asp-page="/Cart" asp-page-handler="CheckOut">
+                    <button class="btn btn-success" type="submit">CHECKOUT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+}

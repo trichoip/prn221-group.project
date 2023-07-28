@@ -1,0 +1,15 @@
+﻿@page
+@model WebApp.Pages.Admin.LoginModel
+@{
+    Layout = "_LayoutAdmin";
+}
+<h1>Login</h1>
+<form class="w-25" method="post">
+    <label asp-for="LoginVM.UserName" class="form-label"></label>
+    <input asp-for="LoginVM.UserName" class="form-control"/>
+    <span class="text-danger" asp-validation-for="LoginVM.UserName"></span><br />
+    <label asp-for="LoginVM.Password" class="form-label"></label>
+    <input asp-for="LoginVM.Password" class="form-control" />
+    <span class="text-danger" asp-validation-for="LoginVM.Password"></span><br />
+    <input type="submit" class="btn btn-primary" value="Login"/>
+</form>

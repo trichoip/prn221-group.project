@@ -1,0 +1,93 @@
+﻿@page
+@model WebApp.Pages.Admin.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Orders</h1>
+
+<form method="get">
+    <div class="form-group">
+        <label for="searchStatus">Search by Status:</label>
+        <select id="searchStatus" class="form-control" asp-for="SearchStatus" asp-items="ViewBag.StatusOptions">
+            <option value="">All</option>
+        </select>
+        <button type="submit" class="btn btn-primary" asp-page-handler="Search">Search</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Account)
+            </th>
+            <th>Details</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td style="background-color: @GetStatusCssClass(item.Status)">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.Username)
+                </td>
+                <td>
+                    @foreach (var orderItem in item.OrderItems)
+                    {
+                        <div>
+                            Shoe: @orderItem.Shoe.Model <br />
+                            Quantity: @orderItem.Quantity <br />
+                            --------------------------- <br />
+                        </div>
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    string GetStatusCssClass(string status)
+    {
+        switch (status)
+        {
+            case "Pending":
+                return "yellow";
+            case "Delivering":
+                return "orange";
+            case "Completed":
+                return "lightgreen";
+            case "Cancelled":
+                return "red";
+            case "Deleted":
+                return "gray";
+            default:
+                return string.Empty;
+        }
+    }
+}

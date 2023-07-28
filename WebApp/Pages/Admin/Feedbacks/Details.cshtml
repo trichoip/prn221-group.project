@@ -1,0 +1,56 @@
+﻿@page
+@model WebApp.Pages.Admin.Feedbacks.DetailsModel
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Details</h3>
+
+<div>
+    <h4>Feedbacks</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            <img style="height: 100px;width: 100px;" src="@Model.Rating.Shoe.ImageUrl" />
+        </dd>
+        <dt class="col-sm-2">
+            Model
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating.Shoe.Model)
+        </dd>
+        <dt class="col-sm-2">
+            Email
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating.Account.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Rating
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating.Rating1)
+        </dd>
+        <dt class="col-sm-2">
+            Comment
+        </dt>
+        <dd class="col-sm-10">
+            <span class="text-success">@Html.DisplayFor(model => model.Rating.Comment)</span>
+        </dd>
+        <dt class="col-sm-2">
+            Status
+        </dt>
+        <dd class="col-sm-10" >
+            @Html.DisplayFor(model => model.Rating.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a style="background-color: forestgreen; color: #ffffff; padding: 7px 20px; border-radius: 3px; text-decoration: none;" asp-page="./Index">Back to List</a>
+</div>

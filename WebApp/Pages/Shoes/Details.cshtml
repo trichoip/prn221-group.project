@@ -1,0 +1,181 @@
+﻿@page
+@model WebApp.Pages.Shoes.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    #full-stars-example-two {
+        /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+        .rating-group
+
+    {
+        display: inline-flex;
+    }
+
+    /* make hover effect work properly in IE */
+    .rating__icon {
+        pointer-events: none;
+    }
+
+    /* hide radio inputs */
+    .rating__input {
+        position: absolute !important;
+        left: -9999px !important;
+    }
+
+    /* hide 'none' input from screenreaders */
+    .rating__input--none {
+        display: none
+    }
+
+    /* set icon padding and size */
+    .rating__label {
+        cursor: pointer;
+        padding: 0 0.1em;
+        font-size: 2rem;
+    }
+
+    /* set default star color */
+    .rating__icon--star {
+        color: orange;
+    }
+
+    /* if any input is checked, make its following siblings grey */
+    .rating__input:checked ~ .rating__label .rating__icon--star {
+        color: #ddd;
+    }
+
+    /* make all stars orange on rating group hover */
+    .rating-group:hover .rating__label .rating__icon--star {
+        color: orange;
+    }
+
+    /* make hovered input's following siblings grey on hover */
+    .rating__input:hover ~ .rating__label .rating__icon--star {
+        color: #ddd;
+    }
+
+    }
+</style>
+
+<a asp-page="./Index" class="btn btn-light mb-2"> <i class="fa-solid fa-arrow-left"></i> Back to List</a>
+<div class="row">
+    <div class="col-sm-6">
+        <img style="width: 100%;" src="@Model.Shoe.ImageUrl" alt="ImageUrl" />
+    </div>
+    <div class="col-sm-6">
+        <dl class="row ms-5">
+            <h1> @Html.DisplayFor(model => model.Shoe.Model)</h1>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Sku)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Sku)
+            </dd>
+            
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Size)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Size)
+            </dd>
+           
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Quantity)
+            </dd>
+          
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Brand)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Brand.BrandName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Shoe.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Shoe.Category.CategoryName)
+            </dd>
+            <span style="color:red; font-size: 30px; font-weight:bold;">@Html.DisplayFor(model => model.Shoe.Price) $</span>
+            <a asp-page="/Cart" asp-page-handler="BuyNow" asp-route-id="@Model.Shoe.ShoeId" class="btn bg-black text-white">Buy Now</a>
+        </dl>
+       
+    </div>
+</div>
+
+
+
+@{
+
+    if (HttpContext.Session.GetInt32("accountIdInt") != null)
+    {
+        <div style="padding: 30px; border: solid 1px black; margin-top: 30px; border-radius: 15px;">
+        <h4>Leave your feedback</h4>
+        <form method="post" asp-page="/FeedBack/FeedBack" >
+            <div id="full-stars-example-two">
+                <div class="rating-group">
+                    <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+                    <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+                    <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+                    <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+                    <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+                    <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+                </div>
+               
+            </div>
+
+
+                <label class="form-label mt-2">Comment</label>
+                <textarea name="Comment" rows="5" class="form-control" > </textarea>
+                        <input name="ID" type="hidden" value="@HttpContext.Session.GetInt32("accountIdInt")" class="form-control" />
+                <input name="ShoeID" type="hidden" value="@Model.Shoe.ShoeId" class="form-control" />                      
+            <button class="btn btn-success mt-3" type="submit">Submit</button>
+        </form>
+        </div>
+    }
+    <h5 class="text-center mt-5">Rating</h5>
+    @foreach(var item in @Model.Ratings)
+    {
+        <div style="padding: 10px; padding-left: 20px;border: solid 1px black; margin-top: 20px; border-radius: 15px;">
+            <div> 
+                <h7 class="fw-bold">@item.Account.FirstName</h7>
+            </div>
+            <div class="mt-2">
+                @for (int i = 1; i <= item.Rating1; ++ i)
+                {
+                    <i class="fa-solid fa-star text-warning fs-5"></i>
+                }
+                @for (int i = item.Rating1.Value + 1; i <= 5; ++ i)
+                {
+                    <i class="fa-solid fa-star fs-5"></i>
+                }
+            </div>
+            <div class="mt-1">
+                <p>@item.Comment</p>
+            </div>
+        </div>
+    }
+}
+
+

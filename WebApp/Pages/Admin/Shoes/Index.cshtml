@@ -1,0 +1,119 @@
+﻿@page
+@model WebApp.Pages.Admin.Shoes.IndexModel
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form asp-page="index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input id="SearchString" type="text" name="SearchString" value="@Model.CurrentSearchString" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="index">Back to full list</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Sku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shoe[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Shoe)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sku)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <img style="height: 100px;width: 100px;" src="@item.ImageUrl" alt="ImageUrl" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand.BrandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ShoeId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ShoeId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ShoeId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.Shoe.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Shoe.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="index"
+   asp-route-PageIndex="@(Model.Shoe.PageIndex - 1)"
+   asp-route-SearchString="@Model.CurrentSearchString"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="index"
+   asp-route-PageIndex="@(Model.Shoe.PageIndex + 1)"
+   asp-route-SearchString="@Model.CurrentSearchString"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

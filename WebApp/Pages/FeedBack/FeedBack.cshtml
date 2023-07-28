@@ -1,0 +1,47 @@
+﻿@page
+@model WebApp.Pages.FeedBack.FeedBackModel
+
+@{
+    ViewData["Title"] = "FeedBack";
+}
+
+<h1>FeedBack</h1>
+
+<h4>Rating</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Rating.ShoeId" class="control-label"></label>
+                <select asp-for="Rating.ShoeId" class ="form-control" asp-items="ViewBag.ShoeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.AccountId" class="control-label"></label>
+                <select asp-for="Rating.AccountId" class ="form-control" asp-items="ViewBag.AccountId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Rating1" class="control-label"></label>
+                <input asp-for="Rating.Rating1" class="form-control" />
+                <span asp-validation-for="Rating.Rating1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Comment" class="control-label"></label>
+                <input asp-for="Rating.Comment" class="form-control" />
+                <span asp-validation-for="Rating.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

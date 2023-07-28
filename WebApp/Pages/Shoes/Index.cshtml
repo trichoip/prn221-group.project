@@ -1,0 +1,53 @@
+﻿@page
+@model WebApp.Pages.Shoes.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Welcome</h1>
+<form asp-page="index" method="get">
+    <div class="form-actions no-color">
+        <div class="row">
+            <input class="form-control w-25" id="SearchString" type="text" name="SearchString" value="@Model.CurrentSearchString" />
+            <input type="submit" value="Search" class="btn text-white bg-black ms-2" style="width: 10%;"/> 
+            <a asp-page="index" class="col-1 mt-1" ><i class="fa-solid fa-rotate-right text-black" style="font-size: 30px"></i></a>
+        </div>
+    </div>
+</form>
+<div class="row mt-2 mb-2">
+    @foreach (var item in Model.Shoe)
+    {
+        <div class="col-sm-4">
+            <a style="text-decoration: none" asp-page="./Details" asp-route-id="@item.ShoeId">
+            <div class="m-auto" style="width: 90%;box-shadow: 5px 0px 5px -8px rgba(0,0,0,0.1);
+-webkit-box-shadow: 9px 9px 5px -8px rgba(0,0,0,0.2);
+-moz-box-shadow: 9px 9px 5px -8px rgba(0,0,0,0.5); padding-bottom: 20px;">
+                <div class="ms-auto" style="background-image: url(@item.ImageUrl);width: 100%; height: 450px; background-position:center; background-size: cover;">
+                    
+                </div>
+                <p style="color: black; font-weight: bold; font-size: 26px; margin-left: 10px; margin-top: 10px"> @Html.DisplayFor(modelItem => item.Model)</p>
+                <span style="font-size: 30px; color: red; font-weight:bold;margin-left:10px">@Html.DisplayFor(modelItem => item.Price) <i class="fa-solid fa-dollar-sign ms-1"></i></span>
+                <a style="font-size: 30px; color: black; margin-left: 30px;" asp-page="/Cart" asp-page-handler="BuyNow" asp-route-id="@item.ShoeId"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+            </a>
+        </div>
+    }
+</div>
+
+@{
+    var prevDisabled = !Model.Shoe.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Shoe.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="index"
+   asp-route-PageIndex="@(Model.Shoe.PageIndex - 1)"
+   asp-route-SearchString="@Model.CurrentSearchString"
+   class="btn btn-primary bg-black border-dark @prevDisabled">
+    Previous
+</a>
+<a asp-page="index"
+   asp-route-PageIndex="@(Model.Shoe.PageIndex + 1)"
+   asp-route-SearchString="@Model.CurrentSearchString"
+   class="btn btn-primary border-dark bg-black @nextDisabled">
+    Next
+</a>

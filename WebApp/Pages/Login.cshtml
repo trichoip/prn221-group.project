@@ -1,0 +1,18 @@
+﻿@page
+@model WebApp.Pages.LoginModel
+@{
+}
+<div>
+<h1 class="text-center">Sign in</h1>
+<form class="w-25 m-auto" method="post">
+    <label asp-for="LoginVM.UserName" class="form-label mt-2 fw-bold"></label>
+    <input asp-for="LoginVM.UserName" class="form-control"/>
+    <span class="text-danger" asp-validation-for="LoginVM.UserName"></span><br />
+    <label asp-for="LoginVM.Password" class="form-label mt-2 fw-bold"></label>
+    <input asp-for="LoginVM.Password" class="form-control" />
+    <span class="text-danger" asp-validation-for="LoginVM.Password"></span><br />
+    <input type="submit" class="btn btn-primary w-100 border-dark bg-black" value="Login"/>
+    <hr />
+    <a asp-page="/Register" class="btn btn-light border-dark mt-2 w-100">Register</a>
+</form>
+</div>
